@@ -17,6 +17,16 @@ class AppServiceProvider extends ServiceProvider
             \App\Repository\User\Contracts\UserRepository::class,
             \App\Repository\User\Eloquent\EloquentUserRepository::class
         );
+
+        $this->app->bind(
+            \App\Repository\Task\Contracts\TaskRepository::class,
+            \App\Repository\Task\Eloquent\EloquentTaskRepository::class
+        );
+
+        $this->app->bind(
+            \App\Repository\TaskList\Contracts\TaskListRepository::class,
+            \App\Repository\TaskList\Eloquent\EloquentTaskListRepository::class
+        );
     }
 
     /**

@@ -2,84 +2,70 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TaskList;
-use Illuminate\Http\Request;
+use App\Http\Requests\TaskListRequest;
+use App\Repository\TaskList\Contracts\TaskListRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Response;
 
 class TaskListController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $repository;
+    private const LIST_NOT_FOUND = "List not found.";
+
+    public function __construct(TaskListRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function index()
     {
-        //
+        return response()->json(
+            $this->repository->allWithTasks(),
+            Response::HTTP_OK
+        );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(TaskListRequest $request)
     {
-        //
+        $taskList = $this->repository->create($request->validated());
+        return response()->json($taskList, Response::HTTP_CREATED);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function show(int $id)
     {
-        //
+        try {
+            $taskList = $this->repository->find($id);
+            return response()->json($taskList, Response::HTTP_OK);
+        } catch (ModelNotFoundException $exception) {
+            return $this->sendListNotFoundResponse();
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\TaskList  $taskList
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TaskList $taskList)
+    public function update(TaskListRequest $request, int $id)
     {
-        //
+        $payload = $request->validated();
+        try {
+            $taskList = $this->repository->update($payload, $id);
+            return response()->json($taskList, Response::HTTP_ACCEPTED);
+        } catch (ModelNotFoundException $exception) {
+            return $this->sendListNotFoundResponse();
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\TaskList  $taskList
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(TaskList $taskList)
+    public function destroy(int $id)
     {
-        //
+        try {
+            $taskList = $this->repository->delete($id);
+            return response()->json($taskList, Response::HTTP_ACCEPTED);
+        } catch (ModelNotFoundException $exception) {
+            return $this->sendListNotFoundResponse();
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TaskList  $taskList
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, TaskList $taskList)
+    private function sendListNotFoundResponse()
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\TaskList  $taskList
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(TaskList $taskList)
-    {
-        //
+        return response()->json([
+            'message' => self::LIST_NOT_FOUND
+        ], Response::HTTP_NOT_FOUND);
     }
 }

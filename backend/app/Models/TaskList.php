@@ -4,13 +4,31 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TaskList extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'name'
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($instance) {
+            $instance->child->each->delete();
+        });
+
+        static::restoring(function ($instance) {
+            $instance->child->each->restore();
+        });
+    }
 
     public function tasks()
     {
-        $this->hasMany(Task::class);
+        return $this->hasMany(Task::class);
     }
 }

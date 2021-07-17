@@ -2,84 +2,70 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Task;
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
+use App\Repository\Task\Contracts\TaskRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $repository;
+    private const TASK_NOT_FOUND = "Task not found";
+
+    public function __construct(TaskRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function index()
     {
-        //
+        $tasks = $this->repository->all();
+        return response()->json($tasks, Response::HTTP_OK);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(StoreTaskRequest $request)
     {
-        //
+        $task = $this->repository->create($request->validated());
+        return response()->json($task, Response::HTTP_CREATED);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function show(int $id)
     {
-        //
+        try {
+            $task = $this->repository->find($id);
+            return response()->json($task,Response::HTTP_OK);
+        } catch (ModelNotFoundException $exception) {
+            return $this->sendTaskNotFoundResponse();
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Task $task)
+
+    public function update(UpdateTaskRequest $request, int $id)
     {
-        //
+        $payload = $request->validated();
+        try {
+            $task = $this->repository->update($payload, $id);
+            return response()->json($task,Response::HTTP_ACCEPTED);
+        } catch (ModelNotFoundException $exception) {
+            return $this->sendTaskNotFoundResponse();
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Task $task)
+    public function destroy(int $id)
     {
-        //
+        try {
+            $task = $this->repository->delete($id);
+            return response()->json($task,Response::HTTP_ACCEPTED);
+        } catch (ModelNotFoundException $exception) {
+            return $this->sendTaskNotFoundResponse();
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Task $task)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Task $task)
-    {
-        //
+    private function sendTaskNotFoundResponse() {
+        return response()->json([
+            'message' => self::TASK_NOT_FOUND
+        ], Response::HTTP_NOT_FOUND);
     }
 }
