@@ -19,11 +19,11 @@ class TaskList extends Model
         parent::boot();
 
         static::deleting(function ($instance) {
-            $instance->child->each->delete();
+            $instance->tasks->each->delete();
         });
 
         static::restoring(function ($instance) {
-            $instance->child->each->restore();
+            $instance->tasks->each->restore();
         });
     }
 

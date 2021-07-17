@@ -17,7 +17,7 @@ class UpdateTaskRequest extends FormRequest
             'user_id' => 'integer|exists:users,id',
             'task_list_id' => 'integer|exists:task_lists,id',
             'name' => 'string',
-            'description' => 'string',
+            'description' => 'string|nullable',
             'order' => 'integer',
         ];
     }
