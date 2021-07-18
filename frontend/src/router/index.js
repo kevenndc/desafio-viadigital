@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Login from '../views/Login.vue'
-import Register from '../views/Login.vue'
+import Register from '../views/Register.vue'
 import Board from '../views/Board.vue'
 import Welcome from '../views/Welcome.vue'
 
@@ -43,6 +43,7 @@ function isLoggedIn() {
 router.beforeEach((to, from, next) => {
     redirectIfRouteIsAuthOnly(to, next);
     redirectIfRouteIsGuestOnly(to, next);
+    next()
 })
 
 function redirectIfRouteIsAuthOnly(destination, next) {

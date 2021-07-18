@@ -27,9 +27,9 @@ export default {
         async logoutUser({ commit }) {
             try {
                 await UserApi.logout()
-                commit('serUser', null)
+                commit('setUser', null)
             } catch (error) {
-                return error
+                throw error
             }
         }
     }

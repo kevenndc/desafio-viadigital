@@ -5,27 +5,30 @@ export default {
     async register(form) {
         try {
             const response = await api().post('/register', form)
-            return response
+            localStorage.setItem('token', response.data.token)
+            return response.data
         } catch (error) {
-            return error.response
+            throw new Error(error.response.data.message)
         }
     },
 
     async login(form) {
         try {
             const response = await api().post('/login', form)
-            return response
+            localStorage.setItem('token', response.data.token)
+            return response.data
         } catch (error) {
-            return error.response
+            throw new Error(error.response.data.message) 
         } 
     },
 
     async logout() {
         try {
             const response = await api().post('/logout')
+            localStorage.removeItem('token')
             return response
         } catch (error) {
-            return error.response
+            throw new Error(error.response.data.message)
         } 
     },
 
@@ -35,7 +38,7 @@ export default {
             const user = User.fromResponse(response.data)
             return user
         } catch (error) {
-            return error.response
+            throw new Error(error.response.data.message)
         } 
     }
 }
