@@ -1,5 +1,5 @@
-import api from '../../../apis/base';
-import User from '../models/User';
+import api from '../../../apis/base'
+import User from '../models/User'
 
 export default {
     async register(form) {

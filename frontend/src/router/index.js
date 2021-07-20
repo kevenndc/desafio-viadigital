@@ -43,7 +43,7 @@ function isLoggedIn() {
 router.beforeEach((to, from, next) => {
     redirectIfRouteIsAuthOnly(to, next);
     redirectIfRouteIsGuestOnly(to, next);
-    next()
+    //next()
 })
 
 function redirectIfRouteIsAuthOnly(destination, next) {
