@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-blue-600 min-h-screen">
+  <div class="flex flex-col min-h-screen bg-blue-600">
     <div class="flex justify-between bg-blue-700 py-3 px-2">
       <h1 class="text-white text-xl font-bold">Krello</h1>
       <nav class="flex">
@@ -43,8 +43,7 @@
         </DropdownMenu>
       </nav>
     </div>
-
-    <router-view></router-view>
+      <router-view></router-view>
   </div>
 </template>
 

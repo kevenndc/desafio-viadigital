@@ -30,9 +30,9 @@ export default {
         }
     },
 
-    async update(task) {
+    async update(taskList) {
         try {
-            const response = await api().put(`/task-lists/${list.id}`, list)
+            const response = await api().put(`/task-lists/${taskList.id}`, taskList)
             return TaskListFactory.createFromResponse(response.data)
         } catch (error) {
             throw new Error(error.response.data.message)

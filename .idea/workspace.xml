@@ -5,7 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9fcfa79-a23b-42ba-8271-711f8adef2f6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/frontend/src/domains/user/services/UserApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/domains/user/services/UserApi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/Http/Controllers/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/Http/Controllers/TaskController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/TaskList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/TaskList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/form-inputs/EmailInput.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/form-inputs/EmailInput.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/form-inputs/PasswordInput.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/form-inputs/PasswordInput.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/form-inputs/TextInput.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/form-inputs/TextInput.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/domains/task-list/services/TaskListApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/domains/task-list/services/TaskListApi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/domains/task/models/Task.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/domains/task/models/Task.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/domains/task/services/TaskApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/domains/task/services/TaskApi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/domains/user/models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/domains/user/models/User.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/Board.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/Board.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +195,8 @@
       <workItem from="1626525151767" duration="9141000" />
       <workItem from="1626554430607" duration="2162000" />
       <workItem from="1626639791867" duration="1932000" />
-      <workItem from="1626734609886" duration="652000" />
+      <workItem from="1626734609886" duration="1246000" />
+      <workItem from="1626817177698" duration="4074000" />
     </task>
     <servers />
   </component>

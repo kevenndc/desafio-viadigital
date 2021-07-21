@@ -1,10 +1,11 @@
 export default class User {
-    constructor(name, email) {
+    constructor(id, name, email) {
+        this.id = id
         this.name = name
         this.email = email
     }
 
-    static fromResponse(response) {
-        return new User(response.name, response.email)
+    static fromResponse(payload) {
+        return new User(payload.id, payload.name, payload.email)
     }
 }

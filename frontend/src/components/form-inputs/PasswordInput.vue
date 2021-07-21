@@ -8,6 +8,7 @@
         :name="name"
         :placeholder="placeholder"
         :required="required"
+        :value="modelValue"
         minlength="8"
         class="w-full border border-gray-300 p-3 text-lg rounded-sm"
         @input="$emit('update:modelValue', $event.target.value)"

@@ -45,6 +45,7 @@ class TaskController extends Controller
     public function update(UpdateTaskRequest $request, int $id)
     {
         $payload = $request->validated();
+        error_log(json_encode($payload));
         try {
             $task = $this->repository->update($payload, $id);
             return response()->json($task,Response::HTTP_ACCEPTED);

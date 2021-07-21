@@ -14,17 +14,20 @@ export default {
     async get(id) {
         try {
             const response = await api().get(`/tasks/${id}`)
+            console.log(response)
             return TaskFactory.createFromResponse(response.data)
         } catch (error) {
+            console.log(error)
             throw new Error(error.response.data.message)
         }
     },
 
     async update(task) {
         try {
-            const response = await api().put(`/tasks/${task.id}`, task)
+            const response = await api().put(`/tasks/${task.id}`, task.normalize())
             return TaskFactory.createFromResponse(response.data)
         } catch (error) {
+            console.log(error)
             throw new Error(error.response.data.message)
         }
     },

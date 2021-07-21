@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.board > * {
+    @apply flex-shrink-0 w-72
+}
