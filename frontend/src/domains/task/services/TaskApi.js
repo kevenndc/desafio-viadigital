@@ -14,7 +14,6 @@ export default {
     async get(id) {
         try {
             const response = await api().get(`/tasks/${id}`)
-            console.log(response)
             return TaskFactory.createFromResponse(response.data)
         } catch (error) {
             console.log(error)

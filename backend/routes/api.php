@@ -29,4 +29,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('task-lists', TaskListController::class);
     Route::apiResource('tasks', TaskController::class);
+    Route::put('task-lists/{id}/tasks', [TaskListController::class, 'updateTasks']);
 });

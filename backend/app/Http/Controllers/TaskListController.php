@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskListRequest;
+use App\Http\Requests\UpdateTasksRequest;
 use App\Repository\TaskList\Contracts\TaskListRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
@@ -57,6 +58,17 @@ class TaskListController extends Controller
         try {
             $taskList = $this->repository->delete($id);
             return response()->json($taskList, Response::HTTP_ACCEPTED);
+        } catch (ModelNotFoundException $exception) {
+            return $this->sendListNotFoundResponse();
+        }
+    }
+
+    public function updateTasks(UpdateTasksRequest $request, int $id)
+    {
+        $payload = $request->validated();
+        try {
+            $tasks = $this->repository->updateTasks($payload, $id);
+            return response()->json($tasks, Response::HTTP_ACCEPTED);
         } catch (ModelNotFoundException $exception) {
             return $this->sendListNotFoundResponse();
         }

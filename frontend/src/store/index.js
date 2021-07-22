@@ -10,18 +10,26 @@ export default createStore({
 
     state: {
         taskLists: [],
+        editingTask: null,
     },
 
     getters: {
         taskLists: (state) => state.taskLists,
+
         getTaskListById: (state) => (id) => {
             return state.taskLists.find((taskList) => taskList.id === id).tasks
         },
+
+        editingTask: (state) => state.editingTask,
     },
 
     mutations: {
         setTaskLists(state, taskLists) {
             state.taskLists = taskLists
+        },
+
+        setEditingTask(state, task) {
+            state.editingTask = task
         },
 
         addTaskList(state, taskList) {
@@ -50,12 +58,34 @@ export default createStore({
             })
         },
 
+        updateTask(state, task) {
+            const index = state.taskLists.findIndex(
+                (taskList) => taskList.id == task.taskListId,
+            )
+
+            state.taskLists[index].tasks.map((_task) => {
+                if (_task.taskListId == task.id) {
+                    return task
+                }
+            })
+        },
+
         updateTasks(state, payload) {
             const index = state.taskLists.findIndex(
                 (taskList) => taskList.id == payload.id,
             )
 
             state.taskLists[index].tasks = payload.tasks
+        },
+
+        removeTask(state, task) {
+            const index = state.taskLists.findIndex(
+                (taskList) => taskList.id == task.taskListId,
+            )
+
+            state.taskLists[index].tasks = state.taskLists[index].tasks.filter(
+                (_task) => _task.id != task.id,
+            )
         },
     },
 
@@ -105,15 +135,40 @@ export default createStore({
             }
         },
 
-        async updateTasks({ commit }, payload) {
-            commit('updateTasks', payload)
+        async updateTask({ commit }, task) {
             try {
-                payload.tasks.forEach(
-                    async (task) => await TaskApi.update(task),
-                )
+                const task = await TaskApi.update(task)
+                commit('updateTask', task)
             } catch (error) {
                 console.log(error)
             }
         },
+
+        async updateTasks({ commit }, payload) {
+            commit('updateTasks', payload)
+            try {
+                await TaskListApi.updateTasks(payload.id, payload.tasks)
+            } catch (error) {
+                console.log(error)
+            }
+        },
+
+        async deleteTask({ commit }, task) {
+            try {
+                await TaskApi.delete(task.id)
+                commit('removeTask', task)
+            } catch (error) {
+                console.log(error)
+            }
+        },
+
+        async updateTask({ commit }, task) {
+            try {
+                await TaskApi.update(task)
+                commit('updateTask', task)
+            } catch (error) {
+                console.log(error)
+            }
+        }
     },
 })

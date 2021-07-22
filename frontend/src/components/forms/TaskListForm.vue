@@ -17,8 +17,8 @@
   </form>
 </template>
 <script>
-import TextInput from "./form-inputs/TextInput.vue"
-import PrimaryButton from "./buttons/PrimaryButton.vue"
+import TextInput from "../form-inputs/TextInput.vue"
+import PrimaryButton from "../buttons/PrimaryButton.vue"
 import { XIcon } from "@heroicons/vue/outline"
 export default {
   components: {

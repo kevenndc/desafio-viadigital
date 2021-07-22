@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Http\Requests\UpdateTasksRequest;
 use App\Repository\Task\Contracts\TaskRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -45,7 +46,6 @@ class TaskController extends Controller
     public function update(UpdateTaskRequest $request, int $id)
     {
         $payload = $request->validated();
-        error_log(json_encode($payload));
         try {
             $task = $this->repository->update($payload, $id);
             return response()->json($task,Response::HTTP_ACCEPTED);

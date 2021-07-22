@@ -29,5 +29,9 @@ export default {
         return tasks
     },
 
-    
+    normalizeTasks(tasks) {
+        return tasks.map(task => {
+            return task.normalize()
+        })
+    }
 }

@@ -19,8 +19,8 @@
   </form>
 </template>
 <script>
-import TextArea from "./form-inputs/TextArea.vue"
-import PrimaryButton from "./buttons/PrimaryButton.vue"
+import TextArea from "../form-inputs/TextArea.vue"
+import PrimaryButton from "../buttons/PrimaryButton.vue"
 import { XIcon } from "@heroicons/vue/outline"
 export default {
   components: {

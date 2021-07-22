@@ -41,40 +41,36 @@ function isLoggedIn() {
 }
 
 router.beforeEach((to, from, next) => {
-    redirectIfRouteIsAuthOnly(to, next);
-    redirectIfRouteIsGuestOnly(to, next);
-    //next()
-})
-
-function redirectIfRouteIsAuthOnly(destination, next) {
-    if (routeIsAuthOnly(destination)) {
+    if (routeIsAuthOnly(to)) {
         if (! isLoggedIn()) {
             return next({
                 name: 'login',
-                query: { redirect: destination.fullPath },
+                query: { redirect: to.fullPath },
             })
         }
 
         return next()
     }
-}
+
+    if (routeIsGuestOnly(to)) {
+        if (isLoggedIn()) {
+            return next({
+                path: 'board',
+                query: { redirect: to.fullPath }
+            })
+        }
+
+        return next()
+    }
+
+    return next()
+})
+
 
 function routeIsAuthOnly(route) {
     return route.matched.some((route) => route.meta.authOnly)
 }
 
-function redirectIfRouteIsGuestOnly(destination, next) {
-    if (routeIsGuestOnly(destination)) {
-        if (isLoggedIn()) {
-            return next({
-                path: 'board',
-                query: { redirect: destination.fullPath }
-            })
-        }
-
-        return next()
-    }
-}
 
 function routeIsGuestOnly(route) {
     return route.matched.some((route) => route.meta.guestOnly)

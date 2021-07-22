@@ -1,5 +1,6 @@
 import api from '../../../apis/base'
 import TaskListFactory from '../factories/TaskListFactory'
+import TaskFactory from '../../task/factories/TaskFactory'
 
 export default {
     async fetchTaskLists() {
@@ -33,6 +34,16 @@ export default {
     async update(taskList) {
         try {
             const response = await api().put(`/task-lists/${taskList.id}`, taskList)
+            return TaskListFactory.createFromResponse(response.data)
+        } catch (error) {
+            throw new Error(error.response.data.message)
+        }
+    },
+
+    async updateTasks(id, tasks) {
+        try {
+            const normalizedTasks = TaskFactory.normalizeTasks(tasks)
+            const response = await api().put(`/task-lists/${id}/tasks`, normalizedTasks)
             return TaskListFactory.createFromResponse(response.data)
         } catch (error) {
             throw new Error(error.response.data.message)

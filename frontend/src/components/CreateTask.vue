@@ -19,7 +19,7 @@
 </template>
 <script>
 import { PlusSmIcon } from "@heroicons/vue/outline"
-import CreateTaskForm from "./CreateTaskForm.vue"
+import CreateTaskForm from "./forms/CreateTaskForm.vue"
 import vClickOutside from "click-outside-vue3"
 export default {
   directives: {

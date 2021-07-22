@@ -62,6 +62,7 @@ export default {
     userName() {
       return this.$store.getters.user.name
     },
+
   },
 
   methods: {

@@ -1,6 +1,6 @@
 <template>
   <div class="w-72 mr-3 overflow-y-auto h-full flex-shrink-0 last:mr-0">
-    <div class="bg-gray-200 relative py-5 px-3 ">
+    <div class="bg-gray-200 relative py-5 px-3">
       <button
         type="button"
         class="w-4 absolute top-1 right-1"
@@ -15,7 +15,12 @@
       />
       <draggable v-model="tasks" group="lists" item-key="id">
         <template #item="{ element }">
-          <div class="p-3 bg-white mt-2">{{ element.name }}</div>
+          <div
+            class="p-3 bg-white cursor-pointer mt-2"
+            @click="selectTaskForEdition(element)"
+          >
+            {{ element.name }}
+          </div>
         </template>
       </draggable>
       <CreateTask :list="taskList" :order="taskList.tasks.length" />
@@ -25,7 +30,7 @@
 <script>
 import TaskList from "./../domains/task-list/models/TaskList"
 import draggable from "vuedraggable"
-import EditableHeader from "./EditableHeader.vue"
+import EditableHeader from "./form-inputs/EditableHeader.vue"
 import { XIcon } from "@heroicons/vue/outline"
 import CreateTask from "./CreateTask.vue"
 export default {
@@ -69,6 +74,10 @@ export default {
     async updateTaskList() {
       await this.$store.dispatch("updateTaskList", this.taskList)
     },
+
+    selectTaskForEdition(task) {
+      this.$store.commit('setEditingTask', task)
+    }
   },
 }
 </script>

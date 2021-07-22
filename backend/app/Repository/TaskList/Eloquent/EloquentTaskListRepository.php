@@ -2,6 +2,7 @@
 
 namespace App\Repository\TaskList\Eloquent;
 
+use App\Models\Task;
 use App\Models\TaskList;
 use App\Repository\TaskList\Contracts\TaskListRepository;
 
@@ -24,6 +25,16 @@ class EloquentTaskListRepository implements TaskListRepository
        $taskList->save();
 
        return $taskList;
+    }
+
+    public function updateTasks(array $payload, int $id)
+    {
+        $tasks = [];
+        foreach ($payload as $task) {
+            $updated = Task::where('id', $task['id'])->update($task);
+            array_push($tasks, $updated);
+        }
+        return $tasks;
     }
 
     public function find($id)

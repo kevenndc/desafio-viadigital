@@ -1,5 +1,6 @@
 <template>
-  <div class="relative h-full flex-grow">
+  <EditTaskModal />
+  <div class="relative h-full flex-grow select-none">
     <div
       class="
         flex
@@ -35,33 +36,21 @@
 </template>
 <script>
 //import TaskList from "../components/TaskList.vue"
-import draggable from "vuedraggable"
-import TaskListForm from "../components/TaskListForm.vue"
-import CreateTask from "../components/CreateTask.vue"
 import AddItemButton from "../components/buttons/AddItemButton.vue"
-import EditableHeader from "../components/EditableHeader.vue"
-import { XIcon } from "@heroicons/vue/outline"
-import vClickOutside from "click-outside-vue3"
 import TaskList from "../components/TaskList.vue"
+import EditTaskModal from "../components/EditTaskModal.vue"
+import TaskListForm from "../components/forms/TaskListForm.vue"
 export default {
   async mounted() {
     await this.$store.dispatch("fetchUserData")
     await this.$store.dispatch("fetchTaskLists")
   },
 
-  directives: {
-    clickOutside: vClickOutside.directive,
-  },
-
   components: {
-    draggable,
-    TaskListForm,
-    CreateTask,
     AddItemButton,
-    XIcon,
-    EditableHeader,
     TaskList,
-    //TaskList,
+    EditTaskModal,
+    TaskListForm,
   },
 
   data() {

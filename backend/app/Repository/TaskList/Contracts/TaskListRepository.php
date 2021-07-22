@@ -10,5 +10,7 @@ interface TaskListRepository
 
     public function update(array $payload, int $id);
 
+    public function updateTasks(array $payload, int $id);
+
     public function delete(int $id);
 }
